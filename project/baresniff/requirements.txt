@@ -1,0 +1,13 @@
+flask
+mongoengine
+flask_mongoengine
+flask-script #provides development server and a shell
+flask-mongorest #need a better REST framework in future
+flask-restful #might need to go away
+mimerender #dependency for flask-mongorest, not able to install with mongorest for some reason.
+Flask-Views #dependency for flask-mongorest, not able to isntall with mongorest for some reason.
+python-dateutil #flask-mongorest dependency
+Flask-OAuthlib #OAuth provider package
+flask-login #for user authentication/authorization/session management
+
+

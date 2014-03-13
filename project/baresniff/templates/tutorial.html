@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block tutorial %}
+<div class="container" >
+    <div class="row" style="margin:120px 0 0">
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active"><a href="#"><i class="fa fa-home fa-fw"></i>Home</a></li>
+                <li><a href="#register"><i class="fa fa-list-alt fa-fw"></i>Register</a></li>
+                <li><a href="#customize"><i class="fa fa-file-o fa-fw"></i>Customize</a></li>
+                <li><a href="#integrate"><i class="fa fa-bar-chart-o fa-fw"></i>Integrate</a></li>
+                <li><a href="#apicalls"><i class="fa fa-table fa-fw"></i>API Calls</a></li>
+                <li><a href="#analytics"><i class="fa fa-tasks fa-fw"></i>Analytics</a></li>
+            </ul>
+        </div>
+        <div class="col-md-9 well">
+            Basic setup and API usage documentation
+        </div>
+        <div class="col-md-9">
+        	<h1>Registration</h1>
+        	<p>
+        		Registration is a simple 2 step process. 
+        		<ul>
+        			<li>First, register as a user on the Baresniff platform.</li>
+        			<li>Second, register your app to be able to use the Baresniff APIs. 
+        			Each client accesses the APIs via OAuth which provides a convenient and secure method of access.</li>
+        		</ul>
+        	</p>
+        	
+        	<hr id="customize">
+        	<h1>Customize</h1>
+        	<p>During registration of the app/client you must customize the Baresniff APIs
+        	to suite your specific needs. There are a number of data fields to choose from - ShortTextField,
+        	 LongTextField, DateTimeField, GeoLocationField, URLField, etc.</p>
+        	 
+        	<hr id="integrate">
+        	<h1>Integrate</h1>
+        	<p></p>
+        	
+        	<hr id="apicalls">
+        	<h1>API Calls</h1>
+        	<p>The following API calls are available (based on your level of access, check the 
+        	pricing section to know more) via OAuth:</p>
+        	
+        	<hr id="analytics">
+        	<h1>Analytics</h1>
+        	<p>Analytics module provides a </p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

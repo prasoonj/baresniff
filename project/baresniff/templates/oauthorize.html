@@ -1,0 +1,52 @@
+<!-- extend from base layout -->
+{% extends "oauth_base.html" %}
+
+{% block oauthorize %}
+
+<!-- 
+<div class="container" style="margin:120px 0 0">
+	<h1>{{client.oauth_authorize_message}}</h1>
+	<h2>Client Name: {{client.client_name}}</h2>
+	<h2>Client Scopes: {{client.default_scopes}}</h2>
+
+	<form action="/oauth/authorize?client_id={{client.client_id}}&response_type=code" method="post" name="authorize">
+	{{form.hidden_tag()}}
+		<p>
+			{{form.scope.label}}: <br>
+			{{form.scope(size=40)}}<br>
+		</p>
+			{% for error in form.errors.scope %}
+			<span style="color: red;">[{{error}}]</span>
+			{% endfor %}<br>
+
+<!~~ 
+    <button name="confirm" value="yes">Confirm</button>
+    <button name="confirm" value="no">Cancel</button>
+ ~~>
+    <p><input type="submit" value="Approve Client"></p>
+	</form>
+</div>
+ -->
+<div class="container" style="margin:120px 0 0">
+	<div class="row">
+        <div class="span12">
+    		<div class="thumbnail center well well-small text-center">
+                <h2>{{client.oauth_authorize_message}}</h2>
+                
+                <p>Subscribe to our Newsletter to know about the best social apps built on Baresniff. 
+                We do not share your email with anyone!</p>
+                
+                <form action="/oauth/authorize?client_id={{client.client_id}}&response_type=code" method="post" name="authorize">
+                	{{form.hidden_tag()}}
+                	{{form.scope(size=40, value='email')}}
+                    <div class="input-prepend"><span class="add-on"><i class="icon-envelope"></i></span>
+                        <input type="text" id="" name="" placeholder="your@email.com">
+                    </div>
+                    <br />
+                    <input type="submit" value="Approve Client!" class="btn btn-large" />
+              </form>
+            </div>    
+        </div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,7 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Welcome, {{user.username}}</h1>
+	<div id="client-registration-block"><a href="/client-registration">Register A Client</a></div>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block dashboard %}
+<!-- 
+<div class="sidebar-nav" style="margin:120px 0 0">
+    <div class="well" style="width:300px; padding: 8px 0;">
+		<ul class="nav nav-list"> 
+		  <li class="nav-header">Admin Menu</li>        
+		  <li><a href="index"><i class="icon-home"></i> Dashboard</a></li>
+          <li><a href="#"><i class="icon-envelope"></i> Messages <span class="badge badge-info">4</span></a></li>
+          <li><a href="#"><i class="icon-comment"></i> Comments <span class="badge badge-info">10</span></a></li>
+		  <li class="active"><a href="#"><i class="icon-user"></i> Members</a></li>
+          <li class="divider"></li>
+		  <li><a href="#"><i class="icon-comment"></i> Settings</a></li>
+		  <li><a href="#"><i class="icon-share"></i> Logout</a></li>
+		</ul>
+	</div>
+</div>
+ -->
+<br><br>
+<div class="container" style="margin:120px 0 0">
+<button type="button" class="col-lg-offset-2 col-sm-8 col-md-8 btn btn-labeled btn-success" id="btn-register-new-app">
+    <span class="btn-label"><i class="glyphicon glyphicon-cloud-upload"></i></span> Click here to register a new app</button>
+    <br><br>
+ <div class="well col-lg-offset-2 col-sm-8 col-md-8">
+ 	{% for client in client_list %}
+        <div class="user-row row">
+            <div class="col-sm-1 col-md-1">
+                <img class="img-circle" src="../static/docs-assets/img/anon_user50.png" alt="User Pic">
+            </div>
+            <div class="col-sm-10 col-md-10">
+                <strong>{{client.client_name}}</strong><br>
+                <span class="text-muted">Access level: {{client.access_level}}</span>
+            </div>
+            <div class="dropdown-user col-sm-1 col-md-1" data-for=".{{client.client_id}}">
+     			<span class="glyphicon glyphicon-chevron-down"></span>
+            </div> 
+        </div>
+        <div class="user-infos {{client.client_id}} row">
+            <div class="col-lg-offset-1 col-sm-10 col-md-10">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">App Details</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-3 col-md-3">
+                                <img class="img-circle" src="../static/docs-assets/img/anon_user100.png" alt="User Pic">
+                            </div>
+                            <div class="col-sm-6 col-md-8">
+                                <strong>Awesome App</strong><br>
+                                <table class="table table-condensed table-responsive table-user-information">
+                                    <tbody>
+                                    <tr>
+                                        <td>Access level:</td>
+                                        <td>{{client.access_level}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Active since:</td>
+                                        <td>{{client.created_at}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Client Id:</td>
+                                        <td>{{client.client_id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Client Secret:</td>
+                                        <td>{{client.client_secret}}</td>
+                                    </tr>                                    
+                                    <tr>
+                                        <td>Queries left:</td>
+                                        <td>{{client.queries_left}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Warnings</td>
+                                        <td>0</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+					<div class="row">
+				        <div class="col-md-8 col-lg-offset-3">
+				            <form action="#" method="get">
+				                <div class="input-group">
+				                    <!-- USE TWITTER TYPEAHEAD JSON WITH API TO SEARCH -->
+				                    <input class="form-control" id="system-search" name="q" placeholder="Search for" required>
+				                    <span class="input-group-btn">
+			    	                    <button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+				                    </span>
+				                </div>
+				            </form>
+				        </div>
+						<div class="col-md-8 col-lg-offset-3">
+					    	 <table class="table table-list-search">
+			                    <thead>
+			                        <tr>
+			                            <th>#</th>
+			                            <th>Field name</th>
+			                            <th>Field type</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody>
+			                        {% for data in client.client_app_meta %}
+			                        <tr>
+			                        	<td>{{loop.index}}</td>
+			                        	<td>{{data}}</td>
+			                        	<td>{{client.client_app_meta[data]}}</td>
+			                        <tr>
+			                        {% endfor %}
+			                    </tbody>
+			                </table>   
+						</div>
+					</div>
+                    <div class="panel-footer">
+                        <button class="btn  btn-primary" type="button" data-toggle="tooltip" data-original-title="Send message to user"><span class="glyphicon glyphicon-envelope"></span></button>
+                        <span class="pull-right">
+                            <button class="btn btn-warning" type="button" data-toggle="tooltip" data-original-title="Edit this user"><span class="glyphicon glyphicon-edit"></span></i></button>
+                            <button class="btn btn-danger" type="button" data-toggle="tooltip" data-original-title="Remove this user"><span class="glyphicon glyphicon-remove"></i></button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div> 	
+ 	{% endfor %}
+    </div>
+</div>
+{% endblock %}

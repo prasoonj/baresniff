@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block app_register %}
+<div class="container">
+<form class="form-horizontal" style="margin:120px 0 0" action="/app_register" method="post" name="app-registration" >
+{{form.hidden_tag()}}
+<fieldset>
+
+<!-- Form Name -->
+<legend>New App Registration</legend>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="client_name">App Name</label>  
+  <div class="col-md-4">
+  <input id="client_name" name="client_name" type="text" placeholder="app name" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+<!-- Textarea -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="client_description">Description</label>
+  <div class="col-md-4">                     
+    <textarea class="form-control" id="client_description" name="client_description" placeholder="Describe your app in a few words (this would be used in places like new user registration, etc.)"></textarea>
+  </div>
+</div>
+
+<!-- Text input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="redirect_uris">Redirect URI</label>  
+  <div class="col-md-4">
+  <input id="redirect_uris" name="redirect_uris" type="text" placeholder="redirect uri" class="form-control input-md" required="">
+    
+  </div>
+</div>
+<!-- app-meta -->
+	<div class="row">
+		<input type="hidden" name="count" value="1" />
+<!-- 
+        <div class="control-group col-md-3" id="text-fields">
+            <label class="control-label" for="field1">Custom Text Fields</label>
+            <div class="controls" id="profs"> 
+                    <div id="field1" class="">
+                		<input autocomplete="off" class="input" id="custom_text_field1" name="custom_text_field1" type="text" placeholder="field name" data-items="8"/>
+                		<button id="custom_text_field" class="btn add-more" type="button">+</button>
+                	</div>
+            <small>Press + to add another form field :)</small>
+            </div>
+        </div>
+        <div class="control-group col-md-3" id="date-fields">
+            <label class="control-label" for="date-fields">Custom DateTime Fields</label>
+            <div class="controls" id="profs"> 
+                    <div id="field2">
+                		<input autocomplete="off" class="input" id="custom_date_field1" name="custom_date_field1" type="text" placeholder="field name" data-items="8"/>
+                		<button id="custom_date_field" class="btn add-more" type="button">+</button>
+                	</div>
+            <small>Press + to add another form field :)</small>
+            </div>
+        </div>
+
+        <div class="control-group col-md-3" id="geo-fields">
+            <label class="control-label" for="geo-fields">Custom GeoLocation Fields</label>
+            <div class="controls" id="profs"> 
+                    <div id="field3">
+                		<input autocomplete="off" class="input" id="custom_geo_field1" name="custom_geo_field1" type="text" placeholder="field name" data-items="8"/>
+                		<button id="custom_geo_field" class="btn add-more" type="button">+</button>
+                	</div>
+            <small>Press + to add another form field :)</small>
+            </div>
+        </div>
+	</div>
+ -->
+<br>
+<div class="container">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Customize Your Fields</h3>
+                    <span class="pull-right">
+                        <!-- Tabs -->
+                        <ul class="nav panel-tabs">
+                            <li class="active"><a href="#tab1" data-toggle="tab">Text Fields</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Date Fields</a></li>
+                            <li><a href="#tab3" data-toggle="tab">Field Group 3</a></li>
+                            <li><a href="#tab4" data-toggle="tab">Fields Group 4</a></li>
+                        </ul>
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab1">
+							<div class="control-group col-md-3" id="short-text-fields">
+								<label class="control-label" for="field1">Short Text Fields</label>
+								<div class="controls" id="profs"> 
+									<div id="field1" class="">
+										<input autocomplete="off" class="input" id="ShortTextField_1" name="ShortTextField_1" type="text" placeholder="field name" data-items="8"/>
+										<button id="ShortTextField" class="btn add-more" type="button">+</button>
+									</div>
+									<small>Press + to add another form field :)</small>
+								</div>
+							</div>
+							<div class="control-group col-md-3" id="long-text-fields">
+								<label class="control-label" for="field1">Long Text Fields</label>
+								<div class="controls" id="profs"> 
+									<div id="field1" class="">
+										<input autocomplete="off" class="input" id="LongTextField_1" name="LongTextField_1" type="text" placeholder="field name" data-items="8"/>
+										<button id="LongTextField" class="btn add-more" type="button">+</button>
+									</div>
+									<small>Press + to add another form field :)</small>
+								</div>
+							</div>
+                        </div>
+                        <div class="tab-pane" id="tab2">
+							<div class="control-group col-md-3" id="date-fields">
+								<label class="control-label" for="field1">Datetime Fields</label>
+								<div class="controls" id="profs"> 
+									<div id="field1" class="">
+										<input autocomplete="off" class="input" id="CustomDateTimeField_1" name="CustomDateTimeField_1" type="text" placeholder="field name" data-items="8"/>
+										<button id="CustomDateTimeField" class="btn add-more" type="button">+</button>
+									</div>
+									<small>Press + to add another form field :)</small>
+								</div>
+							</div>
+							<div class="control-group col-md-3" id="url-fields">
+								<label class="control-label" for="field1">URLField Fields</label>
+								<div class="controls" id="profs"> 
+									<div id="field1" class="">
+										<input autocomplete="off" class="input" id="CustomURLField_1" name="CustomURLField_1" type="text" placeholder="field name" data-items="8"/>
+										<button id="CustomURLField" class="btn add-more" type="button">+</button>
+									</div>
+									<small>Press + to add another form field :)</small>
+								</div>
+							</div>
+							<div class="control-group col-md-3" id="email-fields">
+								<label class="control-label" for="field1">Email Fields</label>
+								<div class="controls" id="profs"> 
+									<div id="field1" class="">
+										<input autocomplete="off" class="input" id="CustomEmailField_1" name="CustomEmailField_1" type="text" placeholder="field name" data-items="8"/>
+										<button id="CustomEmailField" class="btn add-more" type="button">+</button>
+									</div>
+									<small>Press + to add another form field :)</small>
+								</div>
+							</div>
+                        </div>
+                        <div class="tab-pane" id="tab3">
+							<div class="control-group col-md-3" id="int-fields">
+								<label class="control-label" for="field1">IntField Fields</label>
+								<div class="controls" id="profs"> 
+									<div id="field1" class="">
+										<input autocomplete="off" class="input" id="CustomIntField_1" name="CustomIntField_1" type="text" placeholder="field name" data-items="8"/>
+										<button id="CustomIntField" class="btn add-more" type="button">+</button>
+									</div>
+									<small>Press + to add another form field :)</small>
+								</div>
+							</div>
+							<div class="control-group col-md-3" id="list-fields">
+								<label class="control-label" for="field1">List Fields</label>
+								<div class="controls" id="profs"> 
+									<div id="field1" class="">
+										<input autocomplete="off" class="input" id="CustomListField_1" name="CustomListField_1" type="text" placeholder="field name" data-items="8"/>
+										<button id="CustomListField" class="btn add-more" type="button">+</button>
+									</div>
+									<small>Press + to add another form field :)</small>
+								</div>
+							</div>
+							<div class="control-group col-md-3" id="dict-fields">
+								<label class="control-label" for="field1">Dict Fields</label>
+								<div class="controls" id="profs"> 
+									<div id="field1" class="">
+										<input autocomplete="off" class="input" id="CustomDictField_1" name="CustomDictField_1" type="text" placeholder="field name" data-items="8"/>
+										<button id="CustomDictField" class="btn add-more" type="button">+</button>
+									</div>
+									<small>Press + to add another form field :)</small>
+								</div>
+							</div>
+                        </div>
+                        <div class="tab-pane" id="tab4">
+							<div class="control-group col-md-3" id="file-fields">
+								<label class="control-label" for="field1">File Fields</label>
+								<div class="controls" id="profs"> 
+									<div id="field1" class="">
+										<input autocomplete="off" class="input" id="CustomFileField_1" name="CustomFileField_1" type="text" placeholder="field name" data-items="8"/>
+										<button id="CustomFileField" class="btn add-more" type="button">+</button>
+									</div>
+									<small>Press + to add another form field :)</small>
+								</div>
+							</div>
+							<div class="control-group col-md-3" id="image-fields">
+								<label class="control-label" for="field1">Image Fields</label>
+								<div class="controls" id="profs"> 
+									<div id="field1" class="">
+										<input autocomplete="off" class="input" id="CustomImageField_1" name="CustomImageField_1" type="text" placeholder="field name" data-items="8"/>
+										<button id="CustomImageField" class="btn add-more" type="button">+</button>
+									</div>
+									<small>Press + to add another form field :)</small>
+								</div>
+							</div>
+							<div class="control-group col-md-3" id="geo-fields">
+								<label class="control-label" for="field1">Location Fields</label>
+								<div class="controls" id="profs"> 
+									<div id="field1" class="">
+										<input autocomplete="off" class="input" id="CustomGeoPointField_1" name="CustomGeoPointField_1" type="text" placeholder="field name" data-items="8"/>
+										<button id="CustomGeoPointField" class="btn add-more" type="button">+</button>
+									</div>
+									<small>Press + to add another form field :)</small>
+								</div>
+							</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+</div>
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label col-md-offset-1" for="submit"></label>
+  <div class="col-md-4">
+    <button id="submit" name="submit" class="btn btn-success">Register</button>
+  </div>
+</div>
+
+</fieldset>
+</form>
+<hr>
+</div>
+{% endblock %}

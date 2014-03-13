@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <link rel="shortcut icon" href="../../docs-assets/ico/favicon.png">
+      <title>Baresniff - social api for app developers.</title>
+      <!-- Bootstrap core CSS -->
+      <link href="../static/dist/css/bootstrap.css" rel="stylesheet">
+      <!-- Just for debugging purposes. Don't actually copy this line! -->
+      <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+      <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+      <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+      <![endif]-->
+      <!-- Custom styles for this template -->
+      <link href="../static/css/custom.css" rel="stylesheet">
+      {% if page=="login_splash" %}
+      <style type="text/css">
+         body { 
+         background: url(http://lorempixel.com/1920/1920/city/9/) no-repeat center center fixed; 
+         -webkit-background-size: cover;
+         -moz-background-size: cover;
+         -o-background-size: cover;
+         background-size: cover;
+         }
+         .panel-default {
+         opacity: 0.9;
+         margin-top:30px;
+         }
+         .form-group.last { margin-bottom:0px; }
+      </style>
+      {% endif %}
+   </head>
+   <!-- NAVBAR
+      ================================================== -->
+   <body data-spy="scroll" data-target="#navbar-outer">
+      <div class="navbar-wrapper" id="navbar-outer">
+         <div class="">
+            <div class="navbar navbar-inverse navbar-fixed-top color-override" role="navigation">
+               <div class="container">
+                  <div class="navbar-header">
+                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                     <span class="sr-only">Toggle navigation</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     </button>
+                     <a class="navbar-brand active" href="/">{{web_content_ui.site_name}}</a>
+                  </div>
+                  <div class="navbar-collapse collapse">
+                     <ul class="nav navbar-nav">
+                        {% if username=="guest" %}
+                        <li class=""><a href="/#register">{{web_content_ui.register}}</a></li>
+                        {% endif %}
+                        <li><a href="/tutorials">{{web_content_ui.tutorials}}</a></li>
+                        <li><a href="/dashboard">{{web_content_ui.dashboard}}</a></li>
+                        <!-- 
+                           <li class="dropdown">
+                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                             <ul class="dropdown-menu">
+                               <li><a href="#">Action</a></li>
+                               <li><a href="#">Another action</a></li>
+                               <li><a href="#">Something else here</a></li>
+                               <li class="divider"></li>
+                               <li class="dropdown-header">Nav header</li>
+                               <li><a href="#">Separated link</a></li>
+                               <li><a href="#">One more separated link</a></li>
+                             </ul>
+                           </li>
+                           -->
+                     </ul>
+                     {% if user.username=="guest" %}
+                     <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>
+                           <ul class="dropdown-menu" style="padding: 15px;min-width: 250px;">
+                              <li>
+                                 <div class="row">
+                                    <div class="col-md-12">
+                                       <form class="form" role="form" method="post" action="/login" accept-charset="UTF-8" id="login-nav">
+                                          {{form.hidden_tag()}}
+                                          <div class="form-group">
+                                             <label class="sr-only" for="exampleInputEmail2">Username</label>
+                                             {{form.username(class_="form-control", placeholder="username", required="")}}
+                                             {% for error in form.errors.username %}
+                                             <span style="color: red;">[{{error}}]</span>
+                                             {% endfor %}<br>
+                                          </div>
+                                          <div class="form-group">
+                                             <label class="sr-only" for="exampleInputPassword2">Password</label>
+                                             {{form.password(class_="form-control", placeholder="password", required="")}}
+                                             {% for error in form.errors.password %}
+                                             <span style="color: red;">[{{error}}]</span>
+                                             {% endfor %}<br>
+                                          </div>
+                                          <div class="checkbox">
+                                             <label>
+                                             <input type="checkbox"> Remember me
+                                             </label>
+                                          </div>
+                                          <div class="form-group">
+                                             <button type="submit" class="btn btn-success btn-block">Sign in</button>
+                                          </div>
+                                       </form>
+                                    </div>
+                                 </div>
+                              </li>
+                              <li class="divider"></li>
+                              <li>
+                                 <input class="btn btn-primary btn-block" type="button" id="sign-in-google" value="Sign In with Google">
+                                 <input class="btn btn-primary btn-block" type="button" id="sign-in-twitter" value="Sign In with Twitter">
+                              </li>
+                           </ul>
+                        </li>
+                     </ul>
+                     {% endif %}
+                     {% if user.username!="guest" %}
+                     <ul class="nav navbar-nav navbar-right color-override">
+                        <li class="active"><a href="#">Welcome, {{user.first_name}}</a></li>
+                        <li class""><a href="/logout">Sign out</a></li>
+                     </ul>
+                     {% endif %}
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      {% if page=="landing" %}
+      <!-- Carousel
+         ================================================== -->
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+         <!-- Indicators -->
+         <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+         </ol>
+         <div class="carousel-inner">
+            <div class="item active">
+               <img src="../static/docs-assets/img/hero_unit_1.png" alt="mcr">
+               <div class="container">
+                  <div class="carousel-caption">
+                     <h1>{{web_content_marketing.hero_unit_h1_first}}</h1>
+                     <p>{{web_content_marketing.hero_unit_h2_first}}</p>
+                     <p><a class="btn btn-lg btn-success" href="#register" role="button">Sign up today</a></p>
+                  </div>
+               </div>
+            </div>
+            <div class="item">
+               <img src="../static/docs-assets/img/CanadasSnowbirds.jpg" alt="mcr">
+               <div class="container">
+                  <div class="carousel-caption">
+                     <h1>{{web_content_marketing.hero_unit_h1_second}}</h1>
+                     <p>{{web_content_marketing.hero_unit_h2_second}}</p>
+                     <p><a class="btn btn-lg btn-success" href="/tutorial" role="button">Learn more</a></p>
+                  </div>
+               </div>
+            </div>
+            <div class="item">
+               <img src="../static/docs-assets/img/hero_unit_3.jpg" alt="Third slide">
+               <div class="container">
+                  <div class="carousel-caption">
+                     <h1>{{web_content_marketing.hero_unit_h1_third}}</h1>
+                     <p>{{web_content_marketing.hero_unit_h2_third}}</p>
+                     <p><a class="btn btn-lg btn-success" href="#pricing" role="button">Pricing Details</a></p>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+         <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+      </div>
+      <!-- /.carousel -->
+      {% endif %}
+      <!-- Marketing messaging and featurettes
+         ================================================== -->
+      <!-- Wrap the rest of the page in another container to center all the content. -->
+<!--       <div class="container marketing"> -->
+      {% if page=="landing" %}
+<!-- 
+         <div class="row">
+        	<div class="tab-content col-lg-5 col-md-5 col-md-offset-1">
+        		<div class="tab-pane fade in active" id="speed">
+        			<h2>Speed</h2>
+        			<p>The speed at which you build your app can make all the difference. Roll out your app before your peers dream the same dream!</p>
+        			<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        		</div>
+        		<div class="tab-pane fade" id="ease">
+        			<h2>Easy setup</h2>
+        			<p>Using Baresniff platform is quite easy. Just register, customize using our one step app registration and you are good to go. Include the simple API calls in your app design and leave the rest to us!</p>
+        			<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        		</div>
+        		<div class="tab-pane fade" id="versatile">
+        			<h2>Speed</h2>
+        			<p>The speed at which you build your app can make all the difference. Roll out your app before your peers dream the same dream!</p>
+        			<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        		</div>
+        	</div>
+         	<ul class="nav nav-pills">
+         		<li>
+         			<a href="#speed" data-toggle="tab" style="background-color: #fff;">
+         				<img class="img-circle image-tabs active" src="../static/docs-assets/img/bicycle.jpeg" alt="Generic placeholder image">
+         			</a>
+         		</li>
+         		<li>
+         			<a href="#ease" data-toggle="tab" style="background-color: #fff;">
+         				<img class="img-circle image-tabs" src="../static/docs-assets/img/plugnplay.png" alt="Generic placeholder image">
+         			</a>
+         		</li>
+         		<li>
+         			<a href="#versatile" data-toggle="tab" style="background-color: #fff;">
+         				<img class="img-circle image-tabs" src="../static/docs-assets/img/bicycle.jpeg" alt="Generic placeholder image">
+         			</a>
+         		</li>
+         	</ul>
+         </div>
+
+         <hr class="featurette-divider">
+ -->
+          <!-- Three columns of text below the carousel -->
+         <div class="row odd-marketing-block">
+         <div class="container marketing">
+            <div class="col-lg-4">
+               <!-- 
+                  <div class="thumbnail img-circle">
+                      <div class="caption">
+                          <h4>Speed!</h4>
+                          <p>The speed at which you build your app can make all the difference. Roll out your app before your peers dream the same dream!</p>
+                          <p><a href="" class="label label-danger" rel="tooltip" title="Zoom">Zoom</a>
+                          <a href="" class="label label-default" rel="tooltip" title="Download now">Download</a></p>
+                      </div>
+                      <img class="" src="http://lorempixel.com/400/300/sports/3/" alt="Generic placeholder image">
+                  </div>
+                  -->
+               <img class="img-circle" src="../static/docs-assets/img/bicycle.jpeg" alt="Generic placeholder image">
+               <h2>Speed</h2>
+               <p>The speed at which you build your app can make all the difference. Roll out your app before your peers dream the same dream!</p>
+               <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+               <img class="img-circle" src="../static/docs-assets/img/plugnplay.png" alt="Generic placeholder image">
+               <h2>Easy setup</h2>
+               <p>Using Baresniff platform is quite easy. Just register, customize using our one step app registration and you are good to go. Include the simple API calls in your app design and leave the rest to us!</p>
+               <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-4">
+               <img class="img-circle" src="../static/docs-assets/img/bicycle.jpeg" alt="Generic placeholder image">
+               <h2>Production Ready</h2>
+               <p>Your APIs would be production ready from Day 1! And we keep adding functionalities before you feel a need for them.</p>
+               <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+            </div>
+            <!-- /.col-lg-4 -->
+         </div>
+         </div>
+         <!-- /.row -->
+         <!-- START THE FEATURETTES -->
+<!-- 
+         <hr class="featurette-divider">
+ -->
+         <div class="row featurette even-marketing-block">
+          <div class="container">
+            <div class="col-md-7">
+               <h2 class="featurette-heading">Quick Customize. <span class="text-muted">Fits all SoLoMo use-cases.</span></h2>
+               <p class="lead">Customization is quick and easy. The intuitive user interface let's you model your idea fast with a no-nonsense approach.</p>
+            </div>
+            <div class="col-md-5">
+               <img class="featurette-image img-responsive img-circle" src="../static/docs-assets/img/customize.jpg" alt="Generic placeholder image">
+            </div>
+          </div>
+         </div>
+         
+<!-- 
+         <hr class="featurette-divider">
+ -->
+         <div class="row featurette  odd-marketing-block">
+          <div class="container">
+            <div class="col-md-5">
+               <img class="featurette-image img-responsive img-circle" src="../static/docs-assets/img/testedwaters.png" alt="Generic placeholder image">
+            </div>
+            <div class="col-md-7">
+               <h2 class="featurette-heading">Jump right in. <span class="text-muted">Best practices guaranteed.</span></h2>
+               <p class="lead">We have made sure to give you the best of the industry standards when it comes to APIs. Baresniff is a secure, scalable, dependable platform that just works!</p>
+            </div>
+          </div>
+         </div>
+         
+<!-- 
+         <hr class="featurette-divider" id="pricing">
+ -->
+         <div class="row featurette even-marketing-block">
+          <div class="container">
+            <div class="col-md-7">
+               <h2 class="featurette-heading">Start for free. <span class="text-muted">Pay when you are ready to take off.</span></h2>
+               <p class="lead">We work on the freemium model. The easy pricing scheme lets you hop on to Baresniff comfortably and without any worries. Use not just for testing your application but even in production with actual user queries.</p>
+            </div>
+            <div class="col-md-5">
+               <img class="featurette-image img-responsive img-circle" src="../static/docs-assets/img/startfree.jpg" alt="Generic placeholder image">
+            </div>
+          </div>
+         </div>
+<!-- 
+         <hr class="featurette-divider" id="register">
+ -->
+         <div class="row featurette odd-marketing-block" id="register">
+          <div class="container">
+<!-- 
+          <legend>Free Signup!</legend>
+ -->
+            <div class="col-md-8">
+               <form class="form-horizontal" action="/register" method="post" name="user-registration" >
+                  {{form.hidden_tag()}}
+                  <fieldset>
+                     <!-- Text input-->
+                     <div class="form-group">
+                        <label class="col-md-4 control-label" for="username">Username</label>  
+                        <div class="col-md-4">
+                           {{form.username(placeholder="username", class_="form-control input-md", required="")}}
+                           <span class="help-block">Usernames are unique across the site!</span>
+                           {% for error in form.errors.username %}
+                           <span style="color: red;">[{{error}}]</span>
+                           {% endfor %}<br>
+                        </div>
+                     </div>
+                     <!-- Password input-->
+                     <div class="form-group">
+                        <label class="col-md-4 control-label" for="password">Password</label>
+                        <div class="col-md-4">
+                           {{form.password(placeholder="Use a tough password!", class_="form-control input-md", required="")}}    
+                           {% for error in form.errors.password %}
+                           <span style="color: red;">[{{error}}]</span>
+                           {% endfor %}<br>
+                        </div>
+                     </div>
+                     <!-- Password input-->
+                     <div class="form-group">
+                        <label class="col-md-4 control-label" for="repassword">Confirm password</label>
+                        <div class="col-md-4">
+                           {{form.confirm_password(placeholder="Enter password again.", class_="form-control input-md", required="")}}
+                           {% for error in form.errors.confirm_password %}
+                           <span style="color: red;">[{{error}}]</span>
+                           {% endfor %}<br>
+                        </div>
+                     </div>
+                     <!-- Text input-->
+                     <div class="form-group">
+                        <label class="col-md-4 control-label" for="firstname">First Name</label>  
+                        <div class="col-md-4">
+                           {{form.first_name(placeholder="Your first name.", class_="form-control input-md", required="")}}
+                           {% for error in form.errors.first_name %}
+                           <span style="color: red;">[{{error}}]</span>
+                           {% endfor %}<br>
+                        </div>
+                     </div>
+                     <!-- Text input-->
+                     <div class="form-group">
+                        <label class="col-md-4 control-label" for="lastname">Last Name</label>  
+                        <div class="col-md-4">
+                           {{form.last_name(placeholder="Your last name.", class_="form-control input-md", required="")}}
+                           {% for error in form.errors.last_name %}
+                           <span style="color: red;">[{{error}}]</span>
+                           {% endfor %}<br>
+                        </div>
+                     </div>
+                     <!-- Text input-->
+                     <div class="form-group">
+                        <label class="col-md-4 control-label" for="email">Email</label>  
+                        <div class="col-md-4">
+                           {{form.email(placeholder="Enter a valid email address!", class_="form-control input-md", required="")}}
+                           {% for error in form.errors.email %}
+                           <span style="color: red;">[{{error}}]</span>
+                           {% endfor %}<br>
+                        </div>
+                     </div>
+                     <!-- Button -->
+                     <div class="form-group">
+                        <label class="col-md-4 control-label" for="submit"></label>
+                        <div class="col-md-6">
+                           <button id="submit" name="submit" class="btn btn-success">Sign Me Up!</button>
+                           <span class="help-block">{{web_content_marketing.sign_up_precondition}}</span>  
+                        </div>
+                     </div>
+                  </fieldset>
+               </form>
+            </div>
+            <div class="col-md-4">
+               <h2 class="featurette-heading">{{web_content_marketing.sign_up_heading}}<span class="text-muted">{{web_content_marketing.sign_up_heading_fade}}</span></h2>
+               <p class="lead">{{web_content_marketing.sign_up_caption}}</p>
+            </div>
+          </div>
+         {% endif %}
+         </div>
+<!-- 
+         </div> 
+ -->
+         {% block dashboard %}{% endblock %}
+         {% block app_register %}{% endblock %}
+         {% block login_splash %}{% endblock %}
+         {% block tutorial %}{% endblock %}
+         {% block oauthorize %}{% endblock %}
+         <div class="footer">
+         <div class="container">
+         <!-- /END THE FEATURETTES -->
+         <!-- FOOTER -->
+         <!-- 
+            <footer>
+              <p class="pull-right"><a href="#">Back to top</a></p>
+              <p>&copy; 2013 Baresniff, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+            </footer>
+            -->
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="col-md-3">
+                  <ul class="list-unstyled">
+                     <li>Baresniff
+                     <li>
+                     <li><a href="#">About us</a></li>
+                     <li><a href="#">Blog</a></li>
+                     <li><a href="#">Contact & support</a></li>
+                     <li><a href="#">Site status</a></li>
+                  </ul>
+               </div>
+               <div class="col-md-3">
+                  <ul class="list-unstyled">
+                     <li>Applications
+                     <li>
+                     <li><a href="#">Product for Mac</a></li>
+                     <li><a href="#">Product for Windows</a></li>
+                     <li><a href="#">Product for Eclipse</a></li>
+                     <li><a href="#">Product mobile apps</a></li>
+                  </ul>
+               </div>
+               <div class="col-md-3">
+                  <ul class="list-unstyled">
+                     <li>Services
+                     <li>
+                     <li><a href="#">Web analytics</a></li>
+                     <li><a href="#">Presentations</a></li>
+                     <li><a href="#">Code snippets</a></li>
+                     <li><a href="#">Job board</a></li>
+                  </ul>
+               </div>
+               <div class="col-md-3">
+                  <ul class="list-unstyled">
+                     <li>Documentation
+                     <li>
+                     <li><a href="#">Product Help</a></li>
+                     <li><a href="#">Developer API</a></li>
+                     <li><a href="#">Product Markdown</a></li>
+                     <li><a href="#">Product Pages</a></li>
+                  </ul>
+               </div>
+            </div>
+         </div>
+         <hr>
+         <div class="row">
+            <div class="col-lg-12">
+               <div class="col-md-8">
+                  <a href="#">Terms of Service :</a>    
+                  <a href="#">Privacy :</a>    
+                  <a href="#">Security</a>
+               </div>
+               <div class="col-md-4">
+                  <p class="muted pull-right">© 2013 Baresniff. All rights reserved</p>
+               </div>
+            </div>
+         </div>
+         </div>
+      </div>
+      <!-- /.container -->
+      <!-- Bootstrap core JavaScript
+         ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <!-- TODO: For production remove the local reference and use this one
+         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+         -->
+      <script src="../static/local_only/jquery-1.10.2.min.js"></script>
+      <script src="../static/dist/js/bootstrap.min.js"></script>
+      <script src="../static/docs-assets/js/holder.js"></script>
+      <script src="../static/docs-assets/js/bscustom.js"></script>
+   </body>
+</html>

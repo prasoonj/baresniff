@@ -1,0 +1,37 @@
+<!-- extend from base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>Welcome, {{user.username}}</h1>
+
+{% if fresh_registration=="success" %}
+	<p>Client_id: {{client.client_id}}</p><br>
+	<p>Client_secret: {{client.client_secret}}</p><br>
+	<p>Client_name: {{client.client_name}}</p>
+{% endif %}
+
+{% if form %}
+<form action="" method="post" name="client-registration">
+	{{form.hidden_tag()}}
+	<p>
+		Client Name: {{form.client_name}}
+	</p>
+	{% for error in form.errors.client_name %}
+		<span style="color: red;">[{{error}}]</span>
+	{% endfor %}<br>
+	<p>
+		Confidential? {{form.is_confidential}}<br>
+	</p>
+	<p>
+		Redirect URIs: {{form.redirect_uris}}
+	</p>
+	<p>
+		Default Scopes: {{form.default_scopes}}
+	</p>
+	<p>
+		Client Description: {{form.client_description}}
+	</p>
+	<p><input type="submit" value="Sign In"></p>
+</form>
+{% endif %}
+{% endblock %}
